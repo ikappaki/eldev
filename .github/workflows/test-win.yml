@@ -25,9 +25,9 @@ jobs:
 
     steps:
     - name: Set up Emacs
-      uses: purcell/setup-emacs@master
+      uses: msys2/setup-msys2@v2
       with:
-        version: ${{matrix.emacs_version}}
+        install: mingw64/mingw-w64-x86_64-emacs
 
     - name: Set up additional packages (Ubuntu)
       if: startsWith (matrix.os, 'ubuntu')
