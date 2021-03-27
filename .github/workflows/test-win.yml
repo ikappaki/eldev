@@ -49,7 +49,8 @@ jobs:
         %EMACS% -Q --batch --eval "(progn (require 'package) (package-initialize t) (princ 'done))"
         %EMACS% -Q --batch --eval "(princ 10)"
 
-        set ELDEV_LOCAL=.
+        set "ELDEV_LOCAL=%cd%"
+        echo %ELDEV_LOCAL%
         bin\eldev.bat
         #bin\eldev.bat -p -dtTC test --omit-backtraces --expect 200
         # bin\eldev.bat -p -dtTC test --test-type integration --omit-backtraces --expect 5
@@ -73,8 +74,7 @@ jobs:
                                     (kill-emacs 1))))"
         # Ensure that our tests can be compiled cleanly: warnings
         # might indicate something is wrong with the test.  Here we
-        # can already use Eldev.
-        set ELDEV_LOCAL=.
+        # can already use Eldev.        
         bin\eldev -p -dtTC compile --set test --warnings-as-errors
 
     - name: Lint the project
