@@ -49,9 +49,9 @@ jobs:
         %EMACS% --batch --no-site-file --no-site-lisp --execute "(progn (require 'package) (package-initialize t) (princ 'done))"
         %EMACS% --batch --eval "(progn (add-to-list 'load-path \"d:/a/eldev/eldev\") (require 'eldev))"
         %EMACS% -Q --batch --eval "(princ 10)"
-        type eldev.el
         set "ELDEV_LOCAL=%cd%"
         echo %ELDEV_LOCAL%
+        dir
         bin\eldev.bat
         #bin\eldev.bat -p -dtTC test --omit-backtraces --expect 200
         # bin\eldev.bat -p -dtTC test --test-type integration --omit-backtraces --expect 5
