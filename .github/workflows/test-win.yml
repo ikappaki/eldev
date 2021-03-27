@@ -49,7 +49,7 @@ jobs:
         set EMACS=c:\msys64\mingw64\bin\emacs
         %EMACS% -Q --batch --eval "(princ 5)"
         %EMACS% --batch --no-site-file --no-site-lisp --execute "(progn (require 'package) (package-initialize t) (princ 'done))"
-        %EMACS% -Q --batch --eval "(progn (add-to-list 'load-path \"d:/a/eldev/eldev\") (require 'eldev))"
+        #%EMACS% -Q --batch --eval "(progn (add-to-list 'load-path \"d:/a/eldev/eldev\") (require 'eldev))"
         %EMACS% -Q --batch --eval "(princ 10)"
         set "ELDEV_LOCAL=%cd%"
         echo %ELDEV_LOCAL%
