@@ -47,14 +47,14 @@ jobs:
       run: |
         c:\msys64\mingw64\bin\emacs --version
         set EMACS=c:\msys64\mingw64\bin\emacs
-        %EMACS% -Q --batch --eval "(princ 5)"
-        %EMACS% --batch --no-site-file --no-site-lisp --execute "(progn (require 'package) (package-initialize t) (princ 'done))"
-        #%EMACS% -Q --batch --eval "(progn (add-to-list 'load-path \"d:/a/eldev/eldev\") (require 'eldev))"
-        %EMACS% -Q --batch --eval "(princ 10)"
+        #n%EMACS% -Q --batch --eval "(princ 5)"
+        # %EMACS% --batch --no-site-file --no-site-lisp --execute "(progn (require 'package) (package-initialize t) (princ 'done))"
+        # %EMACS% -Q --batch --eval "(progn (add-to-list 'load-path \"d:/a/eldev/eldev\") (require 'eldev))"
+        # %EMACS% -Q --batch --eval "(princ 10)"
         set "ELDEV_LOCAL=%cd%"
         echo %ELDEV_LOCAL%
-        dir
-        bin\eldev.bat
+        # dir
+        # bin\eldev.bat
         bin\eldev.bat -p -dtTC test --omit-backtraces --expect 200
         bin\eldev.bat -p -dtTC test --test-type integration --omit-backtraces --expect 5
 
@@ -65,7 +65,7 @@ jobs:
         # We'd use Eldev itself to byte-compile, but that could hide
         # some problems (for Eldev itself, other packages should be
         # fine) by indirectly loading `.el' first.
-        emacs --batch --eval "(progn
+        %EMACS% --batch --eval "(progn
                                 (require 'bytecomp)
                                 (let ((byte-compile-error-on-warn t))
                                   (push default-directory load-path)
