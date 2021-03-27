@@ -28,7 +28,7 @@ jobs:
       uses: msys2/setup-msys2@v2
       with:
         release: false
-        install: emacs
+        install: mingw64/mingw-w64-x86_64-emacs
 
     - name: Set up additional packages (Ubuntu)
       if: startsWith (matrix.os, 'ubuntu')
