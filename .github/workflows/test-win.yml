@@ -44,6 +44,7 @@ jobs:
       shell: cmd
       run: |
         dir c:\msys64\mingw64\bin
+        set EMACS=c:\msys64\mingw64\bin\emacs
         set ELDEV_LOCAL=.
         bin\eldev.bat -p -dtTC test --omit-backtraces --expect 200
         bin\eldev.bat -p -dtTC test --test-type integration --omit-backtraces --expect 5
