@@ -151,7 +151,7 @@
 "))))))
 
 (ert-deftest eldev-init-svn-1 ()
-  (skip-unless (eldev-svn-executable t))
+  (skip-unless (not (eq system-type 'windows-nt)))
 
   (eldev--test-with-temp-copy "project-a" 'SVN
     :ignores nil
