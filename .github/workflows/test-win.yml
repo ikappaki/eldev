@@ -29,6 +29,7 @@ jobs:
       with:
         release: false
         install: mingw64/mingw-w64-x86_64-emacs
+    - run: git config --global core.autocrlf inpu
 
     - name: Set up additional packages (Ubuntu)
       if: startsWith (matrix.os, 'ubuntu')
@@ -36,6 +37,7 @@ jobs:
     - name: Set up additional packages (macOS)
       if: startsWith (matrix.os, 'macos')
       run: brew install texinfo mercurial subversion
+
 
     - name: Check out the source code
       uses: actions/checkout@v2
@@ -47,7 +49,7 @@ jobs:
         set EMACS=c:\msys64\mingw64\bin\emacs
         %EMACS% -Q --batch --eval "(princ 5)"
         %EMACS% --batch --no-site-file --no-site-lisp --execute "(progn (require 'package) (package-initialize t) (princ 'done))"
-        %EMACS% --batch --eval "(progn (add-to-list 'load-path \"d:/a/eldev/eldev\") (require 'eldev))"
+        %EMACS% -Q --batch --eval "(progn (add-to-list 'load-path \"d:/a/eldev/eldev\") (require 'eldev))"
         %EMACS% -Q --batch --eval "(princ 10)"
         set "ELDEV_LOCAL=%cd%"
         echo %ELDEV_LOCAL%
