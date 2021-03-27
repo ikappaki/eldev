@@ -41,8 +41,9 @@ jobs:
 
     - name: Test the project
       run: |
-        ELDEV_LOCAL=. ./bin/eldev -p -dtTC test --omit-backtraces --expect 200
-        ELDEV_LOCAL=. ./bin/eldev -p -dtTC test --test-type integration --omit-backtraces --expect 5
+        set ELDEV_LOCAL=.
+        bin\eldev -p -dtTC test --omit-backtraces --expect 200
+        bin\eldev -p -dtTC test --test-type integration --omit-backtraces --expect 5
 
     - name: Ensure clean byte-compilation
       run: |
@@ -63,7 +64,8 @@ jobs:
         # Ensure that our tests can be compiled cleanly: warnings
         # might indicate something is wrong with the test.  Here we
         # can already use Eldev.
-        ELDEV_LOCAL=. ./bin/eldev -p -dtTC compile --set test --warnings-as-errors
+        set ELDEV_LOCAL=.
+        bin\eldev -p -dtTC compile --set test --warnings-as-errors
 
     - name: Lint the project
       run: |
