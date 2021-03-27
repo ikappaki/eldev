@@ -46,7 +46,7 @@ jobs:
         c:\msys64\mingw64\bin\emacs --version
         set EMACS=c:\msys64\mingw64\bin\emacs
         %EMACS% -Q --batch --eval "(princ 5)"
-        %EMACS% -Q --batch --eval "(require 'package)"
+        %EMACS% -Q --batch --eval "(progn (require 'package) (package-initialize t) (princ 'done))"
         %EMACS% -Q --batch --eval "(princ 10)"
 
         set ELDEV_LOCAL=.
