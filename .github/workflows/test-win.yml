@@ -28,7 +28,7 @@ jobs:
       uses: msys2/setup-msys2@v2
       with:
         release: false
-        install: mingw64/mingw-w64-x86_64-emacs
+        install: mingw64/mingw-w64-x86_64-emacs subversion
     - run: git config --global core.autocrlf input
 
     - name: Set up additional packages (Ubuntu)
@@ -47,20 +47,14 @@ jobs:
       run: |
         c:\msys64\mingw64\bin\emacs --version
         set EMACS=c:\msys64\mingw64\bin\emacs
-        #n%EMACS% -Q --batch --eval "(princ 5)"
-        # %EMACS% --batch --no-site-file --no-site-lisp --execute "(progn (require 'package) (package-initialize t) (princ 'done))"
-        # %EMACS% -Q --batch --eval "(progn (add-to-list 'load-path \"d:/a/eldev/eldev\") (require 'eldev))"
-        # %EMACS% -Q --batch --eval "(princ 10)"
         set "ELDEV_LOCAL=%cd%"
-        echo %ELDEV_LOCAL%
-        # dir
-        # bin\eldev.bat
         bin\eldev.bat -p -dtTC test --omit-backtraces --expect 200
         bin\eldev.bat -p -dtTC test --test-type integration --omit-backtraces --expect 5
 
     - name: Ensure clean byte-compilation
       shell: cmd
       run: |
+        set EMACS=c:\msys64\mingw64\bin\emacs
         # Also require that byte-compilation produces no warnings.
         # We'd use Eldev itself to byte-compile, but that could hide
         # some problems (for Eldev itself, other packages should be
@@ -82,9 +76,11 @@ jobs:
 
     - name: Lint the project
       run: |
+        set EMACS=c:\msys64\mingw64\bin\emacs
+        set "ELDEV_LOCAL=%cd%"      
         # Run `relint' on Eldev's source code, more as a test of
         # Eldev--relint integration, because we use `rx' macro.
-        ELDEV_LOCAL=. ./bin/eldev -p -dtTC lint re
+        bin\eldev -p -dtTC lint re
 
     # Method 1: if you have a catch-all directory for executables.  We
     # don't test bootstrapping, as that is supposed to have been
