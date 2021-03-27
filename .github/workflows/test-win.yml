@@ -55,8 +55,8 @@ jobs:
         echo %ELDEV_LOCAL%
         dir
         bin\eldev.bat
-        #bin\eldev.bat -p -dtTC test --omit-backtraces --expect 200
-        # bin\eldev.bat -p -dtTC test --test-type integration --omit-backtraces --expect 5
+        bin\eldev.bat -p -dtTC test --omit-backtraces --expect 200
+        bin\eldev.bat -p -dtTC test --test-type integration --omit-backtraces --expect 5
 
     - name: Ensure clean byte-compilation
       shell: cmd
