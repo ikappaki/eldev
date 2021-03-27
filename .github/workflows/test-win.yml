@@ -48,7 +48,7 @@ jobs:
         %EMACS% -Q --batch --eval "(princ 5)"
         %EMACS% --batch --no-site-file --no-site-lisp --execute "(progn (require 'package) (package-initialize t) (princ 'done))"
         %EMACS% -Q --batch --eval "(princ 10)"
-
+        type eldev.el
         set "ELDEV_LOCAL=%cd%"
         echo %ELDEV_LOCAL%
         bin\eldev.bat
