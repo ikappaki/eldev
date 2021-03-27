@@ -43,9 +43,10 @@ jobs:
     - name: Test the project
       shell: cmd
       run: |
+        where emacs
         set ELDEV_LOCAL=.
-        bin\eldev -p -dtTC test --omit-backtraces --expect 200
-        bin\eldev -p -dtTC test --test-type integration --omit-backtraces --expect 5
+        bin\eldev.bat -p -dtTC test --omit-backtraces --expect 200
+        bin\eldev.bat -p -dtTC test --test-type integration --omit-backtraces --expect 5
 
     - name: Ensure clean byte-compilation
       shell: cmd
