@@ -71,8 +71,6 @@ jobs:
       if: "!startsWith (matrix.os, 'windows')"
 
     - name: Test the project
-      if: "startsWith (matrix.os, 'windows')"
-      shell: cmd
       run: |
         eldev -p -dtTC test --omit-backtraces --expect 200
         eldev -p -dtTC test --test-type integration --omit-backtraces --expect 5
