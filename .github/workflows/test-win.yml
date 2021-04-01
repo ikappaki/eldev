@@ -1,7 +1,4 @@
-# NOTE: The following complications are for Eldev itself.  Projects
-# that _use_ Eldev can have it simpler.  Please see the homepage:
-#
-#     https://github.com/doublep/eldev#github-workflows
+# Example MS-Windows test job, using latest version of emacs available in MSYS2
 
 name: CI
 
@@ -15,13 +12,7 @@ on:
 
 jobs:
   test:
-    runs-on: ${{matrix.os}}
-    continue-on-error: ${{matrix.emacs_version == 'snapshot'}}
-
-    strategy:
-      matrix:
-        os: [windows-latest]
-        emacs_version: ['27.1']
+    runs-on: windows-latest
 
     steps:
     - name: Set up Emacs
@@ -31,86 +22,15 @@ jobs:
         install: mingw64/mingw-w64-x86_64-emacs
     - run: git config --global core.autocrlf input
 
-    - name: Set up additional packages (Ubuntu)
-      if: startsWith (matrix.os, 'ubuntu')
-      run: sudo apt-get -y install texinfo mercurial subversion
-    - name: Set up additional packages (macOS)
-      if: startsWith (matrix.os, 'macos')
-      run: brew install texinfo mercurial subversion
-
-
     - name: Check out the source code
       uses: actions/checkout@v2
 
     - name: Test the project
       shell: cmd
-      run: |
-        where svn
+      run: |        
         c:\msys64\mingw64\bin\emacs --version
         set EMACS=c:\msys64\mingw64\bin\emacs
         set "ELDEV_LOCAL=%cd%"
         bin\eldev.bat -p -dtTC test --omit-backtraces --expect 200
-        bin\eldev.bat -p -dtTC test --test-type integration --omit-backtraces --expect 5
-
-    - name: Ensure clean byte-compilation
-      shell: cmd
-      run: |
-        set EMACS=c:\msys64\mingw64\bin\emacs
-        # Also require that byte-compilation produces no warnings.
-        # We'd use Eldev itself to byte-compile, but that could hide
-        # some problems (for Eldev itself, other packages should be
-        # fine) by indirectly loading `.el' first.
-        %EMACS% --batch --eval "(progn
-                                (require 'bytecomp)
-                                (let ((byte-compile-error-on-warn t))
-                                  (push default-directory load-path)
-                                  (unless (and (byte-compile-file \"eldev-util.el\")
-                                               (byte-compile-file \"eldev.el\")
-                                               (byte-compile-file \"eldev-ert.el\")
-                                               (byte-compile-file \"eldev-buttercup.el\")
-                                               (byte-compile-file \"eldev-plugins.el\"))
-                                    (kill-emacs 1))))"
-        # Ensure that our tests can be compiled cleanly: warnings
-        # might indicate something is wrong with the test.  Here we
-        # can already use Eldev.        
-        bin\eldev -p -dtTC compile --set test --warnings-as-errors
-
-    - name: Lint the project
-      run: |
-        set EMACS=c:\msys64\mingw64\bin\emacs
-        set "ELDEV_LOCAL=%cd%"      
-        # Run `relint' on Eldev's source code, more as a test of
-        # Eldev--relint integration, because we use `rx' macro.
-        bin\eldev -p -dtTC lint re
-
-    # Method 1: if you have a catch-all directory for executables.  We
-    # don't test bootstrapping, as that is supposed to have been
-    # tested by normal ERT tests.
-    - name: Test installation 1
-      run: |
-        mkdir ~/fake-bin
-        cd ~/fake-bin
-        curl -fsSL https://raw.github.com/doublep/eldev/master/bin/eldev > eldev && chmod a+x eldev
-        test -x ~/fake-bin/eldev
-
-    # Method 2: general case, with Eldev script installed to
-    # `~/.eldev/bin'.  We don't add it to `$PATH' as we never run it.
-    - name: Test installation 2
-      run: |
-        ! test -x ~/.eldev/bin/eldev
-        curl -fsSL https://raw.github.com/doublep/eldev/master/webinstall/eldev | sh
-        test -x ~/.eldev/bin/eldev
-        rm -r ~/.eldev/bin
-
-    # GitHub-specific installation specifically for workflows.
-    - name: Test GitHub-specific installation
-      run: |
-        ! test -x ~/.eldev/bin/eldev
-        curl -fsSL https://raw.github.com/doublep/eldev/master/webinstall/github-eldev | sh
-        test -x ~/.eldev/bin/eldev
-
-    - name: ...continued
-      run: |
-        # "" is useful in case `which' returns an empty string.
-        test ""`which eldev` = ~/.eldev/bin/eldev
-        rm -r ~/.eldev/bin
+        bin\eldev.bat -p -dtTC test --test-type integration --omit-backtraces --expect 5      
+    
