@@ -1,4 +1,4 @@
-# Example MS-Windows test job, using latest version of emacs available in MSYS2
+# Example MS-Windows test job, using latest version of emacs available in MSYS2 
 
 name: CI
 
