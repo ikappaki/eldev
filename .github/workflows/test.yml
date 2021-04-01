@@ -96,7 +96,7 @@ jobs:
         # Run `relint' on Eldev's source code, more as a test of
         # Eldev--relint integration, because we use `rx' macro.
         eldev -p -dtTC lint re
-      ELDEV_LOCAL: "."
+        ELDEV_LOCAL: "."
     # Method 1: if you have a catch-all directory for executables.  We
     # don't test bootstrapping, as that is supposed to have been
     # tested by normal ERT tests.
