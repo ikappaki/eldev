@@ -1,4 +1,5 @@
-# Example MS-Windows test job, using latest version of emacs available in MSYS2 
+# MS-Windows test job, using latest available version of Emacs from
+# MSYS2
 
 name: CI
 
@@ -28,9 +29,9 @@ jobs:
     - name: Test the project
       shell: cmd
       run: |        
-        c:\msys64\mingw64\bin\emacs --version
-        set EMACS=c:\msys64\mingw64\bin\emacs
+        %EMACS% --version
         set "ELDEV_LOCAL=%cd%"
-        bin\eldev.bat -p -dtTC test --omit-backtraces --expect 200
-        bin\eldev.bat -p -dtTC test --test-type integration --omit-backtraces --expect 5      
-    
+        bin\eldev -p -dtTC test --omit-backtraces --expect 200
+        bin\eldev -p -dtTC test --test-type integration --omit-backtraces --expect 5
+      env:
+        EMACS: "c:\\msys64\\mingw64\\bin\\emacs"
