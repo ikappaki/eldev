@@ -32,6 +32,7 @@ jobs:
         %EMACS% --version
         set "ELDEV_LOCAL=%cd%"
         REM bin\eldev -p -dtTC test --omit-backtraces --expect 200
+        echo after
         bin\eldev -p -dtTC test --test-type integration --omit-backtraces --expect 5
       env:
         EMACS: "c:\\msys64\\mingw64\\bin\\emacs"
