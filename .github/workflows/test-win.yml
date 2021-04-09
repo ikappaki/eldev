@@ -27,7 +27,9 @@ jobs:
       uses: actions/checkout@v2
       
     - name: choco
-      run: choco install gnuwin32-coreutils.install
+      run: |
+        choco install gnuwin32-coreutils.install
+        dir "C:\Program Files (x86)\GnuWin32\"
 
     - name: Test the project
       if: ${{ false }}
@@ -35,6 +37,7 @@ jobs:
       run: |        
         %EMACS% --version
         set "ELDEV_LOCAL=%cd%"
+        set PATH="%PATH%;C:\Program Files (x86)\GnuWin32\"
         call bin\eldev.bat -p -dtTC test --omit-backtraces eldev-help-1        
         call bin\eldev.bat -p -dtTC test --test-type integration --omit-backtraces --expect 5
       env:
