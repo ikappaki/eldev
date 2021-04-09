@@ -32,12 +32,11 @@ jobs:
         dir "C:\Program Files (x86)\GnuWin32\"
 
     - name: Test the project
-      if: ${{ false }}
       shell: cmd
       run: |        
         %EMACS% --version
         set "ELDEV_LOCAL=%cd%"
-        set PATH="%PATH%;C:\Program Files (x86)\GnuWin32\"
+        set PATH="%PATH%;C:\Program Files (x86)\GnuWin32\bin"
         call bin\eldev.bat -p -dtTC test --omit-backtraces eldev-help-1        
         call bin\eldev.bat -p -dtTC test --test-type integration --omit-backtraces --expect 5
       env:
